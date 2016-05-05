@@ -1,0 +1,79 @@
+body{
+	font-family: prototype;
+	padding-top: 2%;
+}
+h1{
+	font-family: confetti-stream;
+	text-align: center;
+	font-size: 3em;
+}
+input{
+	border-radius: 20%;
+	font-family: prototype;
+	font-size: 1.2em;
+}
+table {
+    border-collapse: collapse;
+    font-size: 1.2em;
+    text-align: left;
+}
+
+th, td {
+    /*border-bottom: 1px solid black;*/
+    padding: 10px;
+}
+tr:hover {
+	background-color: rgba(0,0,0,0.4);
+}
+#res{
+	background-color: rgba(0,0,0,0.4);
+	margin: 2%;
+	padding: 2%;
+	border-radius: 30px;
+
+}
+#year{
+	width: 60px;
+}
+#col-id{
+	width: 60px;
+}
+#col-name{
+	width: 300px;
+}
+#col-year{
+	width: 120px;
+}
+#col-gender{
+	width: 200px;
+}
+#col-action, #col-edit{
+	display: none;
+}
+#error{
+	margin: 1% 25% 1%;
+	padding: 1%;
+	background-color: rgba(144,0,0,0.5);
+	color: red;
+	text-shadow: 2px 2px #000000;
+	border-radius: 20px;
+	font-family: prototype;
+	font-size: 1.2em;
+	white-space: pre-line;
+	text-align: center;
+}
+#add{
+	background-color: gray;
+	color: #660066;
+	font-size: 1.5em;
+}
+.linhas{
+	white-space: pre;
+}
+.bt-delete, .bt-edit{
+	font-family: prototype;
+	color: #660066;
+}
+.hidden{
+	display: none;
+}
