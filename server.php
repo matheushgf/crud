@@ -5,6 +5,7 @@
 	$database = "seriesmatch";
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
+		$_POST = json_decode(file_get_contents('php://input'), true);
 		if(isset($_POST["request"]) && $_POST["request"] === "getshows"){
 			$conn = new mysqli($host, $user, $pass, $database) or die("{'error': 'Connection to the database failed'}");
 			$sql="SELECT * FROM shows";
@@ -80,11 +81,41 @@
 						);
 					echo json_encode($response);
 			}
+		}
+		else if(isset($_POST["request"]) && $_POST["request"] === "updateshow"){
+			if(isset($_POST["id"]) && isset($_POST["name"]) && isset($_POST["year"]) && isset($_POST["gender"])){
+				$conn = new mysqli($host, $user, $pass, $database) or die("{'error': 'Connection to the database failed'}");
+				$binding = $conn->prepare("UPDATE shows SET name=?, year=?, gender=? WHERE id=?");
+				$binding->bind_param('sisi', $_POST["name"], $_POST["year"], $_POST["gender"], $_POST["id"]);
+				$binding->execute();
+
+				if($binding->affected_rows === 1){
+					$response = array("error" => false);
+					echo json_encode($response);
+				}
+				else{
+					$response = array("error" => true,
+						"error_details" => "Não existente"
+						);
+					echo json_encode($response);
+				}
+				$binding->close();
+			}else{
+				$response = array("error" => true,
+						"error_details" => "Missing parameters"
+						);
+				echo json_encode($response);
+			}
 		}else{
 			$response = array("error" => true,
-					"error_details" => "No request made");
-			echo json_encode($response);
+					"error_details" => "No request made",
+					"post" => $_POST
+					);
+			
+			//echo json_encode($response);
 		}
+	}else{
+		echo "Não é requisição POST";
 	}
 
 ?>

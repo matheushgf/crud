@@ -9,23 +9,35 @@
 		<link rel="stylesheet" type="text/css" href="styles/crud.css">
 	</head>
 	<body>
-		<div>
+		<div ng-app="finderApp" ng-controller="formCtrl">
 			<h1> Cadastro de series </h1>
-			<div id='error'> </div>
-			<form id="form-add" method="post" role="form">
+			<form novalidate class="form-add" name="formadd" ng-submit="addShow(formadd)">
+				<div ng-show="formadd.$submitted && !formadd.$valid" id='error'>
+					<div ng-show="formadd.id.$error.required">ID é obrigatório</div>
+					<div ng-show="formadd.id.$error.min">ID deve ser maior que 0</div>
+					
+					<div ng-show="formadd.name.$error.required">Nome é obrigatório</div>
+				
+					<div ng-show="formadd.year.$error.required">Ano é obrigatório</div>
+					<div ng-show="formadd.year.$error.min || formadd.id.$error.max"> Ano deve ser entre 1900 e 2100</div>
+
+					<div ng-show="formadd.gender.$error.required">Gênero é obrigatório</div>
+				</div>
+
 				<label for="id">ID:</label> 
-				<input id="id" type=text name="id">
+				<input id="id" type=number name="id" ng-model="id" value={{id}} required="true" min=1>
 				<label for="name">Nome:</label> 
-				<input id="name" type=text name="name">
+				<input id="name" type=text name="name" ng-model="name" value={{name}} required="true">
 				<label for="year">Ano:</label> 
-				<input id="year" type=text name="year">
+				<input id="year" type=number name="year" ng-model="year" value={{year}} required="true" min=1900 max=2100>
 				<label for="gender">Gênero:</label> 
-				<input id="gender" type=text name="gender">
-				<button id="add" type=submit> + </button>
+				<input id="gender" type=text name="gender" ng-model="gender" value={{gender}} required="true">
+				<input id="add" type="submit" value={{buttontext}}>
+				<input id="done" type="button" ng-click="descartar()" value="Descartar" ng-show="editing">
 			</form>
 			<h2> Series cadastradas </h2>
 			<div> 
-				<table id="series-table">
+				<table id="series-table" ng-init="getAll()">
 					<tbody>
 					 <tr>
 					   <th id="col-id">ID</th>
@@ -34,13 +46,13 @@
 					   <th id="col-gender">Gênero</th>
 					   <th id="col-action"></th>
 					 </tr>
-					 <!--tr ng-repeat="item in itens">
+					 <tr ng-repeat="item in itens">
 					 	<td> <label ng-hide='esconde'> {{item.id}} </label> </td>
 					 	<td> {{item.name}} </td>
 					 	<td> {{item.year}} </td>
 					 	<td> {{item.gender}} </td>
-					 	<td> <input class='bt-delete' type='button' value='Remover'> <input class='bt-edit' type='button' ng-model='esconde' value='Editar'> </td>
-					 </tr-->
+					 	<td> <input class='bt-delete' type='button' value='Remover' ng-click="deleteShow(item.id)"> <input class='bt-edit' type='button' ng-model='esconde' value='Editar' ng-click="editShow(item)"> </td>
+					 </tr>
 					</tbody>
 				</table>
 			</div>
