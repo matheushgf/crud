@@ -32,8 +32,11 @@ tr:hover {
 	border-radius: 30px;
 
 }
-#year{
+#id{
 	width: 60px;
+}
+#year{
+	width: 80px;
 }
 #col-id{
 	width: 60px;
@@ -51,7 +54,7 @@ tr:hover {
 	display: none;
 }
 #error{
-	margin: 1% 25% 1%;
+	margin: 0 25% 1%;
 	padding: 1%;
 	background-color: rgba(144,0,0,0.5);
 	color: red;
@@ -59,10 +62,9 @@ tr:hover {
 	border-radius: 20px;
 	font-family: prototype;
 	font-size: 1.2em;
-	white-space: pre-line;
 	text-align: center;
 }
-#add{
+#add, #done{
 	background-color: gray;
 	color: #660066;
 	font-size: 1.5em;
